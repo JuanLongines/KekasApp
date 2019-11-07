@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
     android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".activities.LoginActivity">
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <EditText
         android:id="@+id/edtUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
+    <EditText
         android:id="@+id/edtPwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
         android:id="@+id/btnIngreso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="@+id/edtPwd"
         app:layout_constraintStart_toStartOf="@+id/edtPwd"

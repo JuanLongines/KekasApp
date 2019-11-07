@@ -20,6 +20,7 @@ public class LoginModel implements LoginIterface.Model {
             presenter.showError("PWD vacio");
             return;
         }
+        presenter.goToHome();
     }
 }
 

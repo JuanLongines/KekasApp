@@ -27,4 +27,11 @@ public class LoginPresenter implements LoginIterface.Presenter {
             view.showError(error);
         }
     }
+
+    @Override
+    public void goToHome() {
+        if (view != null) {
+            view.goToHome();
+        }
+    }
 }

@@ -4,6 +4,8 @@ public interface LoginIterface {
 
     interface View extends BaseView {
         void doLogin();
+
+        void goToHome();
     }
 
     interface Model {
@@ -14,6 +16,9 @@ public interface LoginIterface {
         void doLogin(String user, String pwd);
 
         void showError(String error);
+
+        void goToHome();
+
     }
 
 }
