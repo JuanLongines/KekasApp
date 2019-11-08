@@ -2,7 +2,6 @@ package com.longines.kekasapp.fragments;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.longines.kekasapp.R;
 import com.longines.kekasapp.adapters.ClienteAdapter;
-import com.longines.kekasapp.di.Injector;
 import com.longines.kekasapp.interfaces.ClienteInterface;
 import com.longines.kekasapp.models.Platillo;
 import com.longines.kekasapp.presenters.ClientePresenter;
@@ -24,12 +22,8 @@ import com.longines.kekasapp.presenters.ClientePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
-
 public class ClientesFragment extends Fragment implements ClienteInterface.View, View.OnClickListener {
 
-    private Realm realm;
     private ClientePresenter presenter;
 
     public ClientesFragment() {
@@ -39,7 +33,6 @@ public class ClientesFragment extends Fragment implements ClienteInterface.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        realm = Injector.providesRealm();
         presenter = new ClientePresenter(this);
 
     }
@@ -53,12 +46,8 @@ public class ClientesFragment extends Fragment implements ClienteInterface.View,
         RecyclerView rvCliente = view.findViewById(R.id.rvCliente);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         rvCliente.setLayoutManager(llm);
-        RealmResults<Platillo> books = realm.where(Platillo.class).findAll();
         List<Platillo> platillos = new ArrayList<>();
-        for (Platillo platillo1 : books) {
-            Log.i("TAG", platillo1.getNombre_platillo());
-            platillos.add(platillo1);
-        }
+
         ClienteAdapter adapter = new ClienteAdapter(platillos, R.layout.item_cliente);
         rvCliente.setAdapter(adapter);
         return view;

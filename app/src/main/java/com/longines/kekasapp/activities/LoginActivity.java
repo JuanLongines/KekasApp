@@ -4,43 +4,60 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.longines.kekasapp.R;
+import com.longines.kekasapp.database.KekasDatabase;
 import com.longines.kekasapp.di.Injector;
 import com.longines.kekasapp.interfaces.LoginIterface;
 import com.longines.kekasapp.models.Platillo;
 import com.longines.kekasapp.presenters.LoginPresenter;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
-import io.realm.Realm;
+import io.reactivex.CompletableObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class LoginActivity extends BaseActivity implements LoginIterface.View, View.OnClickListener {
 
     LoginPresenter presenter;
     Button btnIngreso;
-    private EditText edtUser;
-    private EditText edtPwd;
-    private Realm realm;
+    //    private Realm realm;
+    KekasDatabase db;
+    private MaterialEditText edtUser;
+    private MaterialEditText edtPwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bindUI();
-        realm = Injector.providesRealm();
+        db = Injector.provideRoomDataBase();
         presenter = new LoginPresenter(this);
 
 
-        Platillo platillo = new Platillo();
-        platillo.setId(1);
-        platillo.setNombre_platillo("Gordita");
-        // Persist your data in a transaction
-        realm.beginTransaction();
-//        final Platillo managedDog =
-        realm.copyToRealm(platillo); // Persist unmanaged objects
-//        Person person = realm.createObject(Person.class); // Create managed objects directly
-//        person.getDgos().add(managedDog);
-        realm.commitTransaction();
+        final Platillo platillo = new Platillo();
+        platillo.setNombre("Gordita");
+        platillo.setPrecio("16");
+//        PlatilloDao dao = db.getPlatilloDao();
+        db.getPlatilloDao().insertAll(platillo).subscribeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
 
 
     }

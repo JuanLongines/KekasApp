@@ -51,7 +51,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHold
         }
 
         public void bind(Platillo platillo) {
-            txtNombreCliente.setText(platillo.getNombre_platillo());
+            txtNombreCliente.setText(platillo.getNombre());
         }
     }
 }
